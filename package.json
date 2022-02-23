@@ -1,0 +1,52 @@
+{
+  "name": "test-electron",
+  "private": true,
+  "version": "0.0.0",
+  "author": "3zbumban",
+  "main": "src/electron/main.js",
+  "description": "electron + vue template",
+  "scripts": {
+    "dev": "vite --port 3000",
+    "build": "vite build",
+    "preview": "vite preview --port 3000",
+    "electron": "cross-env NODE_ENV=development electron ./src/electron/main.js",
+    "electron:wait": "wait-on tcp:3000 && cross-env NODE_ENV=development electron ./src/electron/main.js",
+    "electron:dev": "nodemon --watch ./src/electron/ --exec concurrently -k \"cross-env NODE_ENV=development pnpm run dev\" \"pnpm run electron\"",
+    "electron:pack": "pnpm run build && electron-builder --dir",
+    "electron:build": "pnpm run build && electron-builder",
+    "clean": "rm -rf ./dist && rm -rf ./dist_electron"
+  },
+  "dependencies": {
+    "vue": "^3.2.25"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^2.2.0",
+    "concurrently": "^7.0.0",
+    "cross-env": "^7.0.3",
+    "electron": "^17.0.1",
+    "electron-builder": "^22.14.13",
+    "nodemon": "^2.0.15",
+    "vite": "^2.8.0",
+    "wait-on": "^6.0.1"
+  },
+  "build": {
+    "appId": "com.my-website.my-app",
+    "productName": "MyApp",
+    "copyright": "Copyright © 2022 ${author}",
+    "mac": {
+      "category": "public.app-category.utilities"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    },
+    "files": [
+      "dist/**/*",
+      "src/electron/**/*"
+    ],
+    "directories": {
+      "buildResources": "assets",
+      "output": "dist_electron"
+    }
+  }
+}
