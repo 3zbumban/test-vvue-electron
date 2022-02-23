@@ -7,7 +7,7 @@ defineProps({
 
 const dosomething = () => {
   window.api1.doThing({
-    msg: "ihh ahh oohhh"
+    msg: "ping"
   })
 }
 
